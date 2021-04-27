@@ -1,4 +1,2 @@
 
-export interface State {
-	user: any;
-}
+export interface State {}
