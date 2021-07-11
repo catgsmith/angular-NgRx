@@ -28,6 +28,6 @@ export const loadProductsSuccess = createAction(
 );
 
 export const loadProductsFailure = createAction(
-    '[Product] Load Success',
+    '[Product] Load Fail',
     props<{ error: string }>()
 );

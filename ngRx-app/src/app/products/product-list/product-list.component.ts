@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
-import { getCurrentProduct, getProducts, getShowProductCode, State } from '../state/product.reducer';
+import { getCurrentProduct, getError, getProducts, getShowProductCode, State } from '../state/product.reducer';
 import * as ProductActions from '../state/product.actions';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -15,11 +15,11 @@ import { tap } from 'rxjs/operators';
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   pageTitle = 'Products';
-  errorMessage: string;
 
   products$: Observable<Product[]>;
   selectedProduct$: Observable<Product>;
   displayCode$: Observable<boolean>;
+  errorMessage$: Observable<string>;
  
 
   constructor(private store: Store<State>) { }
@@ -27,8 +27,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedProduct$ = this.store.select(getCurrentProduct);
 
-    // Watch for changes to the currently selected product
     this.products$ = this.store.select(getProducts);
+
+    this.errorMessage$ = this.store.select(getError);
 
     this.store.dispatch(ProductActions.loadProducts()); 
 
