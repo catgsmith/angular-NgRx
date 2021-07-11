@@ -10,7 +10,7 @@ export interface State extends AppState.State {
 
 export interface ProductState {
     showProductCode: boolean;
-    currentProductId: number | null ;
+    currentProductId: number | null;
     products: Product[];
     error: string;
 }
@@ -38,7 +38,7 @@ export const getCurrentProduct = createSelector(
     getProductFeatureState,
     getCurrentProductId,
     (state, currentProductId) => {
-        if(currentProductId === 0) {
+        if (currentProductId === 0) {
             return {
                 id: 0,
                 productName: '',
@@ -104,7 +104,7 @@ export const productReducer = createReducer<ProductState>(
     }),
     on(ProductAction.updateProductSuccess, (state, action): ProductState => {
         const updatedProducts = state.products.map(
-            item => action.product.id === item.id ? action.product : item );
+            item => action.product.id === item.id ? action.product : item);
         return {
             ...state,
             products: updatedProducts,
@@ -121,12 +121,27 @@ export const productReducer = createReducer<ProductState>(
     on(ProductAction.createProductSuccess, (state, action): ProductState => {
         return {
             ...state,
-            products: [ ...state.products, action.product],
+            products: [...state.products, action.product],
             currentProductId: action.product.id,
             error: ''
         };
     }),
     on(ProductAction.createProductFailure, (state, action): ProductState => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
+
+    on(ProductAction.deleteProductSuccess, (state, action): ProductState => {
+        return {
+            ...state,
+            products: state.products.filter(product => product.id !== action.productId),
+            currentProductId: null,
+            error: ''
+        };
+    }),
+    on(ProductAction.deleteProductFailure, (state, action): ProductState => {
         return {
             ...state,
             error: action.error
