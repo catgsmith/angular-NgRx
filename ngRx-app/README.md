@@ -4,7 +4,11 @@ Starter files with no NgRx added.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
 
+Make sure you are in the folder that contains `package.json` file then type `npm install`
+
 ## Development server
+catgsmith@claddagh ngRx-app % pwd
+/Users/catgsmith/Tech/workspace_Angular/angular-ngrx/ngRx-app
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
